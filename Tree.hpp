@@ -223,8 +223,8 @@ class Tree {
     else {
       Tree<T> *_temp0 = _temp->R;
       while (_temp0->L) _temp0 = _temp0->L;
-      temp->data = _temp0->data;
-      return _temp->remove(_temp0->data);
+      _temp->data = _temp0->data;
+      return _temp->R->remove(_temp0->data);
     }
 
     return *this;
