@@ -7,6 +7,7 @@
  *
  * @copyright Copyright (c) 2022
  * ! Do not copy or distribute.
+ * * Or, if you do, at least let my credits on it. ;)
  */
 
 #define NULL __null
@@ -35,10 +36,10 @@ class Tree {
     return *this;
   }
   /**
-   * @brief Inserts a value in the left branch.
+   * @brief Inserts a data in the left branch.
    * NOTE: If the branch is already in use, the insertion isn't done.
    *
-   * @param val The value to be stored in the left branch.
+   * @param val The data to be stored in the left branch.
    * @return Tree<T>& Parent of inserted branch.
    */
   Tree<T> &insertInL(T val = T()) {
@@ -58,10 +59,10 @@ class Tree {
     return *this;
   }
   /**
-   * @brief Inserts a value in the right branch.
+   * @brief Inserts a data in the right branch.
    * NOTE: If the branch is already in use, the insertion isn't done.
    *
-   * @param val The value to be stored in the right branch.
+   * @param val The data to be stored in the right branch.
    * @return Tree<T>& Parent of inserted branch.
    */
   Tree<T> &insertInR(T val = T()) {
@@ -70,36 +71,37 @@ class Tree {
   }
 
   /**
-   * @brief Finds a value.
-   * NOTE: If the value is not found it returns an empty Tree.
+   * @brief Removes the left branch if it contains a Tree<T> object.
    *
-   * @param val Wanted value.
-   * @return Tree<T>* Branch where the value was found.
+   * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> *findBranch(T val = T()) {
-    if (val < data) return (L ? L->findBranch(val) : new Tree<T>(T()));
-    if (val > data) return (R ? R->findBranch(val) : new Tree<T>(T()));
-    return this;
+  Tree<T> &removeInL() {
+    if (L) L = NULL;
+    return *this;
   }
   /**
-   * @brief Finds the parent Tree of a value.
-   * NOTE: If the value is not found it returns an empty Tree.
+   * @brief Removes the right branch if it contains a Tree object.
    *
-   * @param val Wanted value.
-   * @return Tree<T>* Parent branch where the value was found.
+   * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> *findParentBranch(T val = T()) {
-    if (L || R) {
-      if (L)
-        if (L->data == val) return this;
-      if (R)
-        if (R->data == val) return this;
-    }
-    if (val < data)
-      if (L) return L->findParentBranch(val);
-    if (val > data)
-      if (R) return R->findParentBranch(val);
-    return new Tree<T>(T());
+  Tree<T> &removeInR() {
+    if (R) R = NULL;
+    return *this;
+  }
+  /**
+   * @brief Removes the left or right branch if the parameter data is found in
+   * one of them.
+   * NOTE: If the data isn't found in any branch it returns the self Tree.
+   *
+   * @param val data to be removed.
+   * @return Tree<T>& Tree with the branch removed.
+   */
+  Tree<T> &removeTBranch(T val = T()) {
+    if (R)
+      if (R->data == val) removeInR();
+    if (L)
+      if (L->data == val) removeInL();
+    return *this;
   }
 
  public:
@@ -111,13 +113,14 @@ class Tree {
   /**
    * @brief Construct a new Tree< T> object
    *
-   * @param val Data value.
+   * @param val Data data.
    */
   Tree<T>(T val) { data = val; }
+
   /**
    * @brief Construct a new Tree< T> object
    *
-   * @param source Data value.
+   * @param source Source data.
    */
   Tree<T>(const Tree<T> &source) {
     data = source.data;
@@ -127,11 +130,11 @@ class Tree {
   ~Tree<T>() {}
 
   /**
-   * @brief Inserts a value in the Tree following the principles of a Binary
+   * @brief Inserts a data in the Tree following the principles of a Binary
    * Search Tree.
-   * NOTE: If the value is in the Tree it isn't inserted again.
+   * NOTE: If the data is in the Tree it isn't inserted again.
    *
-   * @param val Value wanted to be stored.
+   * @param val data wanted to be stored.
    * @return Tree<T>& The self Tree.
    */
   Tree<T> &insert(T val = T()) {
@@ -142,7 +145,7 @@ class Tree {
   /**
    * @brief Inserts a branch in the Tree following the principles of a Binary
    * Search Tree.
-   * NOTE: If the branch data value is in the Tree it isn't inserted.
+   * NOTE: If the branch data data is in the Tree it isn't inserted.
    *
    * @param source Branch wanted to be stored.
    * @return Tree<T>& The self Tree.
@@ -154,25 +157,82 @@ class Tree {
   }
 
   /**
-   * @brief Finds a value.
-   * NOTE: If the value is not found it returns an empty Tree.
+   * @brief Finds a data.
+   * NOTE: If the data is not found it returns an empty Tree.
    *
-   * @param val Wanted value.
-   * @return Tree<T>& Branch where the value was found.
+   * @param val Wanted data.
+   * @return Tree<T>& Branch where the data was found.
    */
-  Tree<T> &find(T val = T()) { return *findBranch(val); }
+  Tree<T> &find(T val = T()) {
+    if (val < data) return (L ? L->find(val) : *(new Tree<T>(T())));
+    if (val > data) return (R ? R->find(val) : *(new Tree<T>(T())));
+    return *this;
+  }
   /**
-   * @brief Finds the parent Tree of a value.
-   * NOTE: If the value is not found it returns an empty Tree.
+   * @brief Finds the parent Tree of a data.
+   * NOTE: If the data is not found it returns an empty Tree.
    *
-   * @param val Wanted value.
-   * @return Tree<T>& Parent branch where the value was found.
+   * @param val Wanted data.
+   * @return Tree<T>& Parent branch where the data was found.
    */
-  Tree<T> &findParent(T val = T()) { return *findParentBranch(); }
+  Tree<T> &findParent(T val = T()) {
+    if (L || R) {
+      if (L)
+        if (L->data == val) return *this;
+      if (R)
+        if (R->data == val) return *this;
+    }
+    if (val < data)
+      if (L) return L->findParent(val);
+    if (val > data)
+      if (R) return R->findParent(val);
+    return *(new Tree<T>(T()));
+  }
+
+  /**
+   * @brief Removes a data from the Tree.
+   * NOTE:If the data isn't in the Tree it returns the self Tree.This method
+   * will self balance the Tree object.
+   *
+   * @param val Data to remove.
+   * @return Tree<T>& Tree with data removed.
+   */
+  Tree<T> &remove(T val = T()) {
+    Tree<T> *temp = &findParent(val), *_temp;
+    bool valOnLeft = bool();
+    if (temp->L || temp->R) {
+      if (temp->L)
+        if (temp->L->data == val) {
+          _temp = temp->L;
+          valOnLeft = true;
+        }
+      if (temp->R)
+        if (temp->R->data == val) {
+          _temp = temp->R;
+          valOnLeft = false;
+        }
+    } else
+      return *this;
+
+    if (!_temp->L && !_temp->R)
+      temp->removeTBranch(val);
+    else if (!_temp->L)
+      (valOnLeft ? temp->L = _temp->R : temp->R = _temp->R);
+    else if (!_temp->R)
+      (valOnLeft ? temp->L = _temp->L : temp->R = _temp->L);
+    else {
+      Tree<T> *_temp0 = _temp->R;
+      while (_temp0->L) _temp0 = _temp0->L;
+      temp->data = _temp0->data;
+      return _temp->remove(_temp0->data);
+    }
+
+    return *this;
+  }
 
   /**
    * @brief Returns data of the left branch.
-   * NOTE: If there isn't a value it returns the default constructor for the
+   * NOTE: If there isn't a data it returns the default constructor for the
    * class of data wanted.
    *
    * @return T
@@ -180,7 +240,7 @@ class Tree {
   T returnContentOnLeft() { return (L ? L->data : T()); }
   /**
    * @brief Returns data of the right branch.
-   * NOTE: If there isn't a value it returns the default constructor for the
+   * NOTE: If there isn't a data it returns the default constructor for the
    * class of data wanted.
    *
    * @return T
@@ -188,7 +248,7 @@ class Tree {
   T returnContentOnRight() { return (R ? R->data : T()); }
   /**
    * @brief Returns data of the self branch.
-   * NOTE: If there isn't a value it returns the default constructor for the
+   * NOTE: If there isn't a data it returns the default constructor for the
    * class of data wanted.
    *
    * @return T
