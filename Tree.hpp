@@ -2,8 +2,8 @@
  * @file Tree.hpp
  * @author Oziel Ferreira (https://github.com/ozielfrs)
  * @brief Tree class.
- * @version 0.1
- * @date 2022-07-16
+ * @version 0.1.1
+ * @date 2022-07-17
  *
  * @copyright Copyright (c) 2022
  * ! Do not copy or distribute.
@@ -93,7 +93,7 @@ class Tree {
    * one of them.
    * NOTE: If the data isn't found in any branch it returns the self Tree.
    *
-   * @param val data to be removed.
+   * @param val Data to be removed.
    * @return Tree<T>& Tree with the branch removed.
    */
   Tree<T> &removeTBranch(T val = T()) {
@@ -113,7 +113,7 @@ class Tree {
   /**
    * @brief Construct a new Tree< T> object
    *
-   * @param val Data data.
+   * @param val Data.
    */
   Tree<T>(T val) { data = val; }
 
@@ -127,7 +127,29 @@ class Tree {
     L = source.L;
     R = source.R;
   }
+  /**
+   * @brief Destroy the Tree object
+   *
+   */
   ~Tree<T>() {}
+
+  /**
+   * @brief Operator overload for comparisons.
+   *
+   * @param rvalue Tree to be compared with.
+   * @return true The Trees are the same.
+   */
+  bool operator==(const Tree<T> rvalue) {
+    return (data == rvalue.data && L == rvalue.L && R == rvalue.R);
+  }
+  /**
+   * @brief Operator overload for validation.
+   * NOTE: A Tree different from default constructor is a valid Tree.
+   *
+   * @return true If the Tree isn't valid.
+   */
+  bool operator!() { return (*this == Tree<T>(T())));
+  }
 
   /**
    * @brief Inserts a data in the Tree following the principles of a Binary
@@ -145,7 +167,7 @@ class Tree {
   /**
    * @brief Inserts a branch in the Tree following the principles of a Binary
    * Search Tree.
-   * NOTE: If the branch data data is in the Tree it isn't inserted.
+   * NOTE: If the branch data is in the Tree it isn't inserted.
    *
    * @param source Branch wanted to be stored.
    * @return Tree<T>& The self Tree.
