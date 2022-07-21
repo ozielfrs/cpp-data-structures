@@ -12,6 +12,8 @@
 
 #define NULL __null
 
+#include <stdexcept>
+
 #pragma once
 /**
  * @brief A Tree of any class of data.
@@ -148,8 +150,7 @@ class Tree {
    *
    * @return true If the Tree isn't valid.
    */
-  bool operator!() { return (*this == Tree<T>(T())));
-  }
+  bool operator!() { return (*this == Tree<T>(T())); }
 
   /**
    * @brief Inserts a data in the Tree following the principles of a Binary
