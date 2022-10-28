@@ -12,8 +12,6 @@
 
 #define NULL __null
 
-#include <stdexcept>
-
 #pragma once
 /**
  * @brief A Tree of any class of data.
@@ -21,7 +19,7 @@
  * @tparam T Class of data.
  */
 template <class T>
-class Tree {
+class Tree final {
  private:
   Tree<T> *L = NULL, *R = NULL;
   T data;
@@ -138,11 +136,18 @@ class Tree {
   /**
    * @brief Operator overload for comparisons.
    *
-   * @param rvalue Tree to be compared with.
+   * @param rval Tree to be compared with.
    * @return true The Trees are the same.
    */
-  bool operator==(const Tree<T> rvalue) {
-    return (data == rvalue.data && L == rvalue.L && R == rvalue.R);
+  bool operator==(const Tree<T> rval) {
+    bool l(!L && !rval.L), r(!R && !rval.R);
+    if (data == rval.data && r && l) {
+      return true;
+    } else if (data == rval.data) {
+      if (!l) l = (L->operator==(*rval.L));
+      if (!r) r = (R->operator==(*rval.R));
+    }
+    return l && r;
   }
   /**
    * @brief Operator overload for validation.
@@ -199,17 +204,13 @@ class Tree {
    * @return Tree<T>& Parent branch where the data was found.
    */
   Tree<T> &findParent(T val = T()) {
-    if (L || R) {
-      if (L)
-        if (L->data == val) return *this;
-      if (R)
-        if (R->data == val) return *this;
-    }
-    if (val < data)
-      if (L) return L->findParent(val);
-    if (val > data)
-      if (R) return R->findParent(val);
-    return *(new Tree<T>(T()));
+    if (L)
+      if (L->data == val) return *this;
+    if (R)
+      if (R->data == val) return *this;
+
+    if (val < data) return (L ? L->findParent(val) : *(new Tree<T>(T())));
+    if (val > data) return (R ? R->findParent(val) : *(new Tree<T>(T())));
   }
 
   /**
@@ -221,33 +222,22 @@ class Tree {
    * @return Tree<T>& Tree with data removed.
    */
   Tree<T> &remove(T val = T()) {
-    Tree<T> *temp = &findParent(val), *_temp;
-    bool valOnLeft = bool();
-    if (temp->L || temp->R) {
-      if (temp->L)
-        if (temp->L->data == val) {
-          _temp = temp->L;
-          valOnLeft = true;
-        }
-      if (temp->R)
-        if (temp->R->data == val) {
-          _temp = temp->R;
-          valOnLeft = false;
-        }
-    } else
-      return *this;
+    Tree<T> *pT = &findParent(val), *t = &pT->find(val);
+    if (t == Tree<T>(T())) return *this;
 
-    if (!_temp->L && !_temp->R)
-      temp->removeTBranch(val);
-    else if (!_temp->L)
-      (valOnLeft ? temp->L = _temp->R : temp->R = _temp->R);
-    else if (!_temp->R)
-      (valOnLeft ? temp->L = _temp->L : temp->R = _temp->L);
-    else {
-      Tree<T> *_temp0 = _temp->R;
-      while (_temp0->L) _temp0 = _temp0->L;
-      _temp->data = _temp0->data;
-      return _temp->R->remove(_temp0->data);
+    if (!t->L && !t->R)
+      pT->removeTBranch(val);
+    else if (!t->L && t->R) {
+      t->L->R = t->R;
+      t = t->L;
+    } else if (!t->R && t->L) {
+      t->R->L = t->L;
+      t = t->R;
+    } else {
+      Tree<T> *aT = t->R;
+      while (aT->L) aT = aT->L;
+      t->data = aT->data;
+      return t->R->remove(aT->data);
     }
 
     return *this;
