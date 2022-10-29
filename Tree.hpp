@@ -106,19 +106,19 @@ class Tree final {
 
  public:
   /**
-   * @brief Construct a new Tree< T> object
+   * @brief Construct a new Tree<T> object
    *
    */
   Tree<T>() { data = T(); }
   /**
-   * @brief Construct a new Tree< T> object
+   * @brief Construct a new Tree<T> object
    *
    * @param val Data.
    */
   Tree<T>(T val) { data = val; }
 
   /**
-   * @brief Construct a new Tree< T> object
+   * @brief Construct a new Tree<T> object
    *
    * @param source Source data.
    */
@@ -156,6 +156,18 @@ class Tree final {
    * @return true If the Tree isn't valid.
    */
   bool operator!() { return (*this == Tree<T>(T())); }
+  /**
+   * @brief Operator overload for less or equal comparison.
+   *
+   * @return true If the Tree root is less or equal to the right Tree root.
+   */
+  bool operator<=(const Tree<T> rval){return (data <= rval.data)};
+  /**
+   * @brief Operator overload for greater comparison.
+   *
+   * @return true If the Tree root is greater to the right Tree root.
+   */
+  bool operator>(const Tree<T> rval){return (data > rval.data)};
 
   /**
    * @brief Inserts a data in the Tree following the principles of a Binary
@@ -166,7 +178,7 @@ class Tree final {
    * @return Tree<T>& The self Tree.
    */
   Tree<T> &insert(T val = T()) {
-    if (val < data) (L ? L->insert(val) : insertInL(val));
+    if (val <= data) (L ? L->insert(val) : insertInL(val));
     if (val > data) (R ? R->insert(val) : insertInR(val));
     return *this;
   }
@@ -179,7 +191,7 @@ class Tree final {
    * @return Tree<T>& The self Tree.
    */
   Tree<T> &insert(Tree<T> source = Tree<T>(T())) {
-    if (source.data < data) (L ? L->insert(source) : insertInL(source));
+    if (source.data <= data) (L ? L->insert(source) : insertInL(source));
     if (source.data > data) (R ? R->insert(source) : insertInR(source));
     return *this;
   }
@@ -192,8 +204,8 @@ class Tree final {
    * @return Tree<T>& Branch where the data was found.
    */
   Tree<T> &find(T val = T()) {
-    if (val < data) return (L ? L->find(val) : *(new Tree<T>(T())));
-    if (val > data) return (R ? R->find(val) : *(new Tree<T>(T())));
+    if (val < data) return (L ? L->find(val) : *(NULL);
+    if (val > data) return (R ? R->find(val) : *(NULL);
     return *this;
   }
   /**
@@ -209,8 +221,8 @@ class Tree final {
     if (R)
       if (R->data == val) return *this;
 
-    if (val < data) return (L ? L->findParent(val) : *(new Tree<T>(T())));
-    if (val > data) return (R ? R->findParent(val) : *(new Tree<T>(T())));
+    if (val < data) return (L ? L->findParent(val) : *(NULL);
+    if (val > data) return (R ? R->findParent(val) : *(NULL);
   }
 
   /**
