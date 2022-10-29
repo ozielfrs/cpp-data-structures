@@ -161,13 +161,13 @@ class Tree final {
    *
    * @return true If the Tree root is less or equal to the right Tree root.
    */
-  bool operator<=(const Tree<T> rval){return (data <= rval.data)};
+  bool operator<=(const Tree<T> rval) { return (data <= rval.data); };
   /**
    * @brief Operator overload for greater comparison.
    *
    * @return true If the Tree root is greater to the right Tree root.
    */
-  bool operator>(const Tree<T> rval){return (data > rval.data)};
+  bool operator>(const Tree<T> rval) { return (data > rval.data); };
 
   /**
    * @brief Inserts a data in the Tree following the principles of a Binary
@@ -204,8 +204,8 @@ class Tree final {
    * @return Tree<T>& Branch where the data was found.
    */
   Tree<T> &find(T val = T()) {
-    if (val < data) return (L ? L->find(val) : *(NULL);
-    if (val > data) return (R ? R->find(val) : *(NULL);
+    if (val < data) return (L ? L->find(val) : NULL);
+    if (val > data) return (R ? R->find(val) : NULL);
     return *this;
   }
   /**
@@ -221,8 +221,8 @@ class Tree final {
     if (R)
       if (R->data == val) return *this;
 
-    if (val < data) return (L ? L->findParent(val) : *(NULL);
-    if (val > data) return (R ? R->findParent(val) : *(NULL);
+    if (val < data) return (L ? L->findParent(val) : NULL);
+    if (val > data) return (R ? R->findParent(val) : NULL);
   }
 
   /**
@@ -262,7 +262,7 @@ class Tree final {
    *
    * @return T
    */
-  T returnContentOnLeft() { return (L ? L->data : T()); }
+  T returnContentOnLeft() { return (L ? L->data : NULL); }
   /**
    * @brief Returns data of the right branch.
    * NOTE: If there isn't a data it returns the default constructor for the
@@ -270,7 +270,7 @@ class Tree final {
    *
    * @return T
    */
-  T returnContentOnRight() { return (R ? R->data : T()); }
+  T returnContentOnRight() { return (R ? R->data : NULL); }
   /**
    * @brief Returns data of the self branch.
    * NOTE: If there isn't a data it returns the default constructor for the
