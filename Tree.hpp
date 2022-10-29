@@ -144,8 +144,8 @@ class Tree final {
     if (data == rval.data && r && l) {
       return true;
     } else if (data == rval.data) {
-      if (!l) l = (L->operator==(*rval.L));
-      if (!r) r = (R->operator==(*rval.R));
+      if (!l && rval.L) l = (L->operator==(*rval.L));
+      if (!r && rval.R) r = (R->operator==(*rval.R));
     }
     return l && r;
   }
