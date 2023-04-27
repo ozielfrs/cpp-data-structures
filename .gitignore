@@ -1,0 +1,5 @@
+*.cpp
+*.exe
+*.dot
+*.png
+.vscode
