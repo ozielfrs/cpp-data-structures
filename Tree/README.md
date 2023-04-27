@@ -2,7 +2,8 @@
 
 ```cpp
 #include <iostream>
-#include "./tree.hpp"
+#include "./tree.hh"
+using namespace std;
 
 int main()
 {

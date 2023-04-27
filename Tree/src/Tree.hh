@@ -1,5 +1,5 @@
 /**
- * @file Tree.hpp
+ * @file Tree.hh
  * @author Oziel Ferreira (https://github.com/ozielfrs)
  * @brief Tree class.
  * @version 0.1.1
@@ -19,8 +19,9 @@
  * @tparam T Class of data.
  */
 template <class T>
-class Tree final {
- private:
+class Tree final
+{
+private:
   Tree<T> *L = NULL, *R = NULL;
   T data;
 
@@ -31,8 +32,10 @@ class Tree final {
    * @param source The data to be stored in the left branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInL(Tree<T> source = Tree<T>(T())) {
-    if (!L) L = new Tree<T>(source);
+  Tree<T> &insertInL(Tree<T> source = Tree<T>(T()))
+  {
+    if (!L)
+      L = new Tree<T>(source);
     return *this;
   }
   /**
@@ -42,8 +45,10 @@ class Tree final {
    * @param val The data to be stored in the left branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInL(T val = T()) {
-    if (!L) L = new Tree<T>(val);
+  Tree<T> &insertInL(T val = T())
+  {
+    if (!L)
+      L = new Tree<T>(val);
     return *this;
   }
 
@@ -54,8 +59,10 @@ class Tree final {
    * @param source The data to be stored in the right branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInR(Tree<T> source = Tree<T>(T())) {
-    if (!R) R = new Tree<T>(source);
+  Tree<T> &insertInR(Tree<T> source = Tree<T>(T()))
+  {
+    if (!R)
+      R = new Tree<T>(source);
     return *this;
   }
   /**
@@ -65,8 +72,10 @@ class Tree final {
    * @param val The data to be stored in the right branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInR(T val = T()) {
-    if (!R) R = new Tree<T>(val);
+  Tree<T> &insertInR(T val = T())
+  {
+    if (!R)
+      R = new Tree<T>(val);
     return *this;
   }
 
@@ -75,8 +84,10 @@ class Tree final {
    *
    * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> &removeInL() {
-    if (L) L = NULL;
+  Tree<T> &removeInL()
+  {
+    if (L)
+      L = NULL;
     return *this;
   }
   /**
@@ -84,8 +95,10 @@ class Tree final {
    *
    * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> &removeInR() {
-    if (R) R = NULL;
+  Tree<T> &removeInR()
+  {
+    if (R)
+      R = NULL;
     return *this;
   }
   /**
@@ -96,15 +109,18 @@ class Tree final {
    * @param val Data to be removed.
    * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> &removeTBranch(T val = T()) {
+  Tree<T> &removeTBranch(T val = T())
+  {
     if (R)
-      if (R->data == val) removeInR();
+      if (R->data == val)
+        removeInR();
     if (L)
-      if (L->data == val) removeInL();
+      if (L->data == val)
+        removeInL();
     return *this;
   }
 
- public:
+public:
   /**
    * @brief Construct a new Tree<T> object
    *
@@ -122,7 +138,8 @@ class Tree final {
    *
    * @param source Source data.
    */
-  Tree<T>(const Tree<T> &source) {
+  Tree<T>(const Tree<T> &source)
+  {
     data = source.data;
     L = source.L;
     R = source.R;
@@ -139,13 +156,19 @@ class Tree final {
    * @param rval Tree to be compared with.
    * @return true The Trees are the same.
    */
-  bool operator==(const Tree<T> rval) {
+  bool operator==(const Tree<T> rval)
+  {
     bool l(!L && !rval.L), r(!R && !rval.R);
-    if (data == rval.data && r && l) {
+    if (data == rval.data && r && l)
+    {
       return true;
-    } else if (data == rval.data) {
-      if (!l && rval.L) l = (L->operator==(*rval.L));
-      if (!r && rval.R) r = (R->operator==(*rval.R));
+    }
+    else if (data == rval.data)
+    {
+      if (!l && rval.L)
+        l = (L->operator==(*rval.L));
+      if (!r && rval.R)
+        r = (R->operator==(*rval.R));
     }
     return l && r;
   }
@@ -177,9 +200,12 @@ class Tree final {
    * @param val data wanted to be stored.
    * @return Tree<T>& The self Tree.
    */
-  Tree<T> &insert(T val = T()) {
-    if (val <= data) (L ? L->insert(val) : insertInL(val));
-    if (val > data) (R ? R->insert(val) : insertInR(val));
+  Tree<T> &insert(T val = T())
+  {
+    if (val <= data)
+      (L ? L->insert(val) : insertInL(val));
+    if (val > data)
+      (R ? R->insert(val) : insertInR(val));
     return *this;
   }
   /**
@@ -190,9 +216,12 @@ class Tree final {
    * @param source Branch wanted to be stored.
    * @return Tree<T>& The self Tree.
    */
-  Tree<T> &insert(Tree<T> source = Tree<T>(T())) {
-    if (source.data <= data) (L ? L->insert(source) : insertInL(source));
-    if (source.data > data) (R ? R->insert(source) : insertInR(source));
+  Tree<T> &insert(Tree<T> source = Tree<T>(T()))
+  {
+    if (source.data <= data)
+      (L ? L->insert(source) : insertInL(source));
+    if (source.data > data)
+      (R ? R->insert(source) : insertInR(source));
     return *this;
   }
 
@@ -203,9 +232,12 @@ class Tree final {
    * @param val Wanted data.
    * @return Tree<T>& Branch where the data was found.
    */
-  Tree<T> &find(T val = T()) {
-    if (val < data) return (L ? L->find(val) : NULL);
-    if (val > data) return (R ? R->find(val) : NULL);
+  Tree<T> &find(T val = T())
+  {
+    if (val < data)
+      return (L ? L->find(val) : NULL);
+    if (val > data)
+      return (R ? R->find(val) : NULL);
     return *this;
   }
   /**
@@ -215,14 +247,19 @@ class Tree final {
    * @param val Wanted data.
    * @return Tree<T>& Parent branch where the data was found.
    */
-  Tree<T> &findParent(T val = T()) {
+  Tree<T> &findParent(T val = T())
+  {
     if (L)
-      if (L->data == val) return *this;
+      if (L->data == val)
+        return *this;
     if (R)
-      if (R->data == val) return *this;
+      if (R->data == val)
+        return *this;
 
-    if (val < data) return (L ? L->findParent(val) : NULL);
-    if (val > data) return (R ? R->findParent(val) : NULL);
+    if (val < data)
+      return (L ? L->findParent(val) : NULL);
+    if (val > data)
+      return (R ? R->findParent(val) : NULL);
   }
 
   /**
@@ -233,21 +270,29 @@ class Tree final {
    * @param val Data to remove.
    * @return Tree<T>& Tree with data removed.
    */
-  Tree<T> &remove(T val = T()) {
+  Tree<T> &remove(T val = T())
+  {
     Tree<T> *pT = &findParent(val), *t = &pT->find(val);
-    if (t == Tree<T>(T())) return *this;
+    if (t == Tree<T>(T()))
+      return *this;
 
     if (!t->L && !t->R)
       pT->removeTBranch(val);
-    else if (!t->L && t->R) {
+    else if (!t->L && t->R)
+    {
       t->L->R = t->R;
       t = t->L;
-    } else if (!t->R && t->L) {
+    }
+    else if (!t->R && t->L)
+    {
       t->R->L = t->L;
       t = t->R;
-    } else {
+    }
+    else
+    {
       Tree<T> *aT = t->R;
-      while (aT->L) aT = aT->L;
+      while (aT->L)
+        aT = aT->L;
       t->data = aT->data;
       return t->R->remove(aT->data);
     }

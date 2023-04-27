@@ -2,7 +2,8 @@
 
 ```cpp
 #include <iostream>
-#include "./graph.hpp"
+#include "./graph.hh"
+using namespace std;
 
 int main()
 {

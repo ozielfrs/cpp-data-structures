@@ -1,7 +1,7 @@
 #ifndef DIJKSTRA_H
 #define DIJKSTRA_H
 
-#include "graph_.hpp"
+#include "graph_.hh"
 #include <vector>
 #include <queue>
 #include <limits>
@@ -13,11 +13,11 @@ public:
     std::unordered_map<T, double> shortestDistances;
     std::unordered_map<T, T> previousVertices;
 
-    void findShortestPaths(Graph<T> &, T, T);
+    void findShortestPaths(UndirectedGraph<T> &, T, T);
 };
 
 template <typename T>
-void Dijkstra<T>::findShortestPaths(Graph<T> &graph, T startId, T endId)
+void Dijkstra<T>::findShortestPaths(UndirectedGraph<T> &graph, T startId, T endId)
 {
     shortestDistances.clear();
     previousVertices.clear();
@@ -48,7 +48,7 @@ void Dijkstra<T>::findShortestPaths(Graph<T> &graph, T startId, T endId)
 
         for (auto &[adjVertex, weight] : currVertex->adjList)
         {
-            double newDistance = shortestDistances[currVertex->id] + weight;
+            double newDistance = shortestDistances[currVertex->id] + *(weight.begin());
 
             if (newDistance < shortestDistances[adjVertex->id])
             {

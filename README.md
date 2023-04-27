@@ -11,11 +11,12 @@ The following data structures are currently implemented in this repository:
 
 ## Usage
 
-To use any of the implemented data structures in your C++ project, simply include the appropriate header file. For example, to use the Graph data structure, include the "graph.hpp" header file in your project:
+To use any of the implemented data structures in your C++ project, simply include the appropriate header file. For example, to use the Graph data structure, include the "graph.hh" header file in your project:
 
 ```cpp
 #include <iostream>
-#include "./Graph/graph.hpp"
+#include "./Graph/graph.hh"
+using namespace std;
 
 int main()
 {

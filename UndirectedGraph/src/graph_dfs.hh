@@ -1,7 +1,7 @@
 #ifndef DFS_H
 #define DFS_H
 
-#include "graph_.hpp"
+#include "graph_.hh"
 #include <stack>
 #include <vector>
 #include <unordered_set>
@@ -12,11 +12,11 @@ class DFS
 public:
     std::vector<T> DFSResult;
 
-    void DepthFirstSearch(Graph<T> &, T);
+    void DepthFirstSearch(UndirectedGraph<T> &, T);
 };
 
 template <typename T>
-void DFS<T>::DepthFirstSearch(Graph<T> &graph, T startId)
+void DFS<T>::DepthFirstSearch(UndirectedGraph<T> &graph, T startId)
 {
     Vertex<T> *startVertex = graph.getVertex(startId);
     std::stack<Vertex<T> *> stack;
