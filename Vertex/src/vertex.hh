@@ -13,6 +13,9 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <unordered_map>
+#include <set>
+
 /**
  * @brief A vertex with identifier of any type.
  *

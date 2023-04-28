@@ -13,10 +13,8 @@
 #ifndef UNDIRECTEDGRAPH_H
 #define UNDIRECTEDGRAPH_H
 
-#include <unordered_map>
-#include <set>
 #include <vector>
-#include <limits>
+#include <cmath>
 #include "../../Vertex/vertex.hh"
 
 /**
@@ -118,7 +116,7 @@ std::vector<std::vector<double>> UndirectedGraph<T>::adjMatrix()
                 if (it != v1->adjList.end())
                     matrix[i][j] = *(it->second.begin());
                 else
-                    matrix[i][j] = std::numeric_limits<double>::infinity();
+                    matrix[i][j] = INFINITY;
             }
         }
     }

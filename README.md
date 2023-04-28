@@ -7,7 +7,8 @@ This repository contains implementations of various data structures in C++. Each
 The following data structures are currently implemented in this repository:
 
 - Binary Search Tree
-- Graph
+- Undirected Graph
+- Vertex
 
 ## Usage
 
