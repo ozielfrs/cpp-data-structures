@@ -1,11 +1,11 @@
 /**
- * @file Tree.hh
+ * @file tree.hh
  * @author Oziel Ferreira (https://github.com/ozielfrs)
  * @brief Tree class.
  * @version 0.1.1
  * @date 2022-07-17
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  * ! Do not copy or distribute.
  * * Or, if you do, at least let my credits on it. ;)
  */

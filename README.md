@@ -20,10 +20,10 @@ using namespace std;
 
 int main()
 {
-    // Creates an undirected graph where the nodes are strings
+    // Creates an undirected graph where the vertices are strings
     Graph<string> graph;
 
-    // Adds edges to the graph (node1, node2, weight)
+    // Adds edges to the graph (vertex1, vertex2, weight)
     graph.addEdge("oradea", "zerind", 71);
     graph.addEdge("oradea", "sibiu", 151);
     graph.addEdge("zerind", "sibiu", 75);

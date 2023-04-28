@@ -1,13 +1,29 @@
-#ifndef GRAPH_H
-#define GRAPH_H
+/**
+ * @file graph_.hh
+ * @author Oziel Ferreira (oziel@unifei.edu.br)
+ * @brief Undirected Graph (UG) Data Structure.
+ * @version 0.1
+ * @date 2023-04-27
+ *
+ * @copyright Copyright (c) 2023
+ * ! Do not copy or distribute.
+ * * Or, if you do, at least let my credits on it. ;)
+ */
+
+#ifndef UNDIRECTEDGRAPH_H
+#define UNDIRECTEDGRAPH_H
 
 #include <unordered_map>
 #include <set>
 #include <vector>
 #include <limits>
-#include <cmath>
 #include "../../Vertex/vertex.hh"
 
+/**
+ * @brief A UG.
+ *
+ * @tparam T Type of vertices.
+ */
 template <typename T>
 class UndirectedGraph
 {
@@ -20,6 +36,13 @@ public:
     ~UndirectedGraph();
 };
 
+/**
+ * @brief Getter for Vertex.
+ *
+ * @tparam T Type of UG.
+ * @param id ID of vertex.
+ * @return Vertex<T>* Pointer to vertex.
+ */
 template <typename T>
 Vertex<T> *UndirectedGraph<T>::getVertex(T id)
 {
@@ -33,6 +56,14 @@ Vertex<T> *UndirectedGraph<T>::getVertex(T id)
     return it->second;
 }
 
+/**
+ * @brief Adder for Edges.
+ *
+ * @tparam T Type of UG.
+ * @param id1 ID of vertex.
+ * @param id2 ID of vertex.
+ * @param weight Weight of connection.
+ */
 template <typename T>
 void UndirectedGraph<T>::addEdge(T id1, T id2, double weight)
 {
@@ -42,6 +73,11 @@ void UndirectedGraph<T>::addEdge(T id1, T id2, double weight)
     v2->adjList[v1].insert(weight);
 }
 
+/**
+ * @brief Destroy Undirected Graph< T>:: Undirected Graph object
+ *
+ * @tparam T Type of UG.
+ */
 template <typename T>
 UndirectedGraph<T>::~UndirectedGraph()
 {
@@ -51,6 +87,12 @@ UndirectedGraph<T>::~UndirectedGraph()
     }
 }
 
+/**
+ * @brief Getter for Adjacency Matrix (AM) of UG. Returns AM with smaller distance between vertices.
+ *
+ * @tparam T Type of UG.
+ * @return std::vector<std::vector<double>> Adjacency Matrix
+ */
 template <typename T>
 std::vector<std::vector<double>> UndirectedGraph<T>::adjMatrix()
 {
@@ -82,39 +124,6 @@ std::vector<std::vector<double>> UndirectedGraph<T>::adjMatrix()
     }
 
     return matrix;
-}
-
-template <typename T>
-std::vector<std::pair<double, double>> UndirectedGraph<T>::positions()
-{
-    std::vector<std::pair<double, double>> estimatives(vertices.size());
-    std::vector<std::vector<double>> adjacencyMatrix = adjMatrix();
-    estimatives[0] = std::make_pair(0.0, 0.0);
-    double x = 0.0, y = 0.0;
-    for (int i = 1; i < vertices.size(); i++)
-    {
-        double distance = adjacencyMatrix[0][i];
-        x += distance;
-        estimatives[i] = std::make_pair(distance, 0.0);
-    }
-    x /= (vertices.size() - 1);
-    for (int i = 1; i < vertices.size(); i++)
-    {
-        double distance = adjacencyMatrix[0][i];
-        double angle = 2 * M_PI * (i - 1) / (vertices.size() - 1);
-        double dx = x - distance;
-        double dy = y + distance * tan(angle);
-        estimatives[i] = std::make_pair(dx, dy);
-    }
-
-    // Print estimatives
-    std::cout << "Estimated distances:\n";
-    for (int i = 0; i < vertices.size(); i++)
-    {
-        std::cout << vertices[i]->id << ": (" << estimatives[i].first << ", " << estimatives[i].second << ")\n";
-    }
-
-    return estimatives;
 }
 
 #endif

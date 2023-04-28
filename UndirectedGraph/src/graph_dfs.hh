@@ -1,3 +1,15 @@
+/**
+ * @file graph_dfs.hh
+ * @author Oziel Ferreira (oziel@unifei.edu.br)
+ * @brief Depth First Search (DFS) for Undirected Graph (UG) Data Structure.
+ * @version 0.1
+ * @date 2023-04-27
+ *
+ * @copyright Copyright (c) 2023
+ * ! Do not copy or distribute.
+ * * Or, if you do, at least let my credits on it. ;)
+ */
+
 #ifndef DFS_H
 #define DFS_H
 
@@ -6,6 +18,11 @@
 #include <vector>
 #include <unordered_set>
 
+/**
+ * @brief A DFS in an UG.
+ *
+ * @tparam T Type of vertices.
+ */
 template <typename T>
 class DFS
 {
@@ -15,6 +32,13 @@ public:
     void DepthFirstSearch(UndirectedGraph<T> &, T);
 };
 
+/**
+ * @brief Performs a DFS in UG.
+ *
+ * @tparam T Type of UG.
+ * @param graph UG.
+ * @param startId Start vertex ID.
+ */
 template <typename T>
 void DFS<T>::DepthFirstSearch(UndirectedGraph<T> &graph, T startId)
 {

@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    // Creates a tree where the nodes are strings
+    // Creates a tree where the vertices are strings
     Tree<string> tree;
 
     // Adds branches to the tree

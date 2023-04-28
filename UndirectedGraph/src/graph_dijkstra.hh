@@ -1,3 +1,15 @@
+/**
+ * @file graph_dijkstra.hh
+ * @author Oziel Ferreira (oziel@unifei.edu.br)
+ * @brief Dijkstra [Minimal Distance Search] (MDS) for Undirected Graph (UG) Data Structure.
+ * @version 0.1
+ * @date 2023-04-27
+ *
+ * @copyright Copyright (c) 2023
+ * ! Do not copy or distribute.
+ * * Or, if you do, at least let my credits on it. ;)
+ */
+
 #ifndef DIJKSTRA_H
 #define DIJKSTRA_H
 
@@ -5,6 +17,12 @@
 #include <vector>
 #include <queue>
 #include <limits>
+
+/**
+ * @brief A MDS in an UG.
+ *
+ * @tparam T Type of vertices.
+ */
 
 template <typename T>
 class Dijkstra
@@ -16,6 +34,14 @@ public:
     void findShortestPaths(UndirectedGraph<T> &, T, T);
 };
 
+/**
+ * @brief Performs a MDS in UG for given start and end vertices.
+ *
+ * @tparam T Type of UG.
+ * @param graph UG.
+ * @param startId Start vertex ID.
+ * @param endId End vertex ID.
+ */
 template <typename T>
 void Dijkstra<T>::findShortestPaths(UndirectedGraph<T> &graph, T startId, T endId)
 {
