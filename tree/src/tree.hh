@@ -1,15 +1,3 @@
-/**
- * @file tree.hh
- * @author Oziel Ferreira (https://github.com/ozielfrs)
- * @brief Tree class.
- * @version 0.1.1
- * @date 2022-07-17
- *
- * @copyright Copyright (c) 2023
- * ! Do not copy or distribute.
- * * Or, if you do, at least let my credits on it. ;)
- */
-
 #define NULL __null
 
 #pragma once
@@ -19,10 +7,9 @@
  * @tparam T Class of data.
  */
 template <class T>
-class Tree final
-{
-private:
-  Tree<T> *L = NULL, *R = NULL;
+class tree final {
+ private:
+  tree<T> *L = NULL, *R = NULL;
   T data;
 
   /**
@@ -32,10 +19,8 @@ private:
    * @param source The data to be stored in the left branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInL(Tree<T> source = Tree<T>(T()))
-  {
-    if (!L)
-      L = new Tree<T>(source);
+  tree<T> &insertInL(tree<T> source = tree<T>(T())) {
+    if (!L) L = new tree<T>(source);
     return *this;
   }
   /**
@@ -45,10 +30,8 @@ private:
    * @param val The data to be stored in the left branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInL(T val = T())
-  {
-    if (!L)
-      L = new Tree<T>(val);
+  tree<T> &insertInL(T val = T()) {
+    if (!L) L = new tree<T>(val);
     return *this;
   }
 
@@ -59,10 +42,8 @@ private:
    * @param source The data to be stored in the right branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInR(Tree<T> source = Tree<T>(T()))
-  {
-    if (!R)
-      R = new Tree<T>(source);
+  tree<T> &insertInR(tree<T> source = tree<T>(T())) {
+    if (!R) R = new tree<T>(source);
     return *this;
   }
   /**
@@ -72,10 +53,8 @@ private:
    * @param val The data to be stored in the right branch.
    * @return Tree<T>& Parent of inserted branch.
    */
-  Tree<T> &insertInR(T val = T())
-  {
-    if (!R)
-      R = new Tree<T>(val);
+  tree<T> &insertInR(T val = T()) {
+    if (!R) R = new tree<T>(val);
     return *this;
   }
 
@@ -84,10 +63,8 @@ private:
    *
    * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> &removeInL()
-  {
-    if (L)
-      L = NULL;
+  tree<T> &removeInL() {
+    if (L) delete L;
     return *this;
   }
   /**
@@ -95,10 +72,8 @@ private:
    *
    * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> &removeInR()
-  {
-    if (R)
-      R = NULL;
+  tree<T> &removeInR() {
+    if (R) delete R;
     return *this;
   }
   /**
@@ -109,37 +84,33 @@ private:
    * @param val Data to be removed.
    * @return Tree<T>& Tree with the branch removed.
    */
-  Tree<T> &removeTBranch(T val = T())
-  {
+  tree<T> &removeTBranch(T val = T()) {
     if (R)
-      if (R->data == val)
-        removeInR();
+      if (R->data == val) removeInR();
     if (L)
-      if (L->data == val)
-        removeInL();
+      if (L->data == val) removeInL();
     return *this;
   }
 
-public:
+ public:
   /**
    * @brief Construct a new Tree<T> object
    *
    */
-  Tree<T>() { data = T(); }
+  tree<T>() { data = T(); }
   /**
    * @brief Construct a new Tree<T> object
    *
    * @param val Data.
    */
-  Tree<T>(T val) { data = val; }
+  tree<T>(T val) { data = val; }
 
   /**
    * @brief Construct a new Tree<T> object
    *
    * @param source Source data.
    */
-  Tree<T>(const Tree<T> &source)
-  {
+  tree<T>(const tree<T> &source) {
     data = source.data;
     L = source.L;
     R = source.R;
@@ -148,7 +119,7 @@ public:
    * @brief Destroy the Tree object
    *
    */
-  ~Tree<T>() {}
+  ~tree<T>() {}
 
   /**
    * @brief Operator overload for comparisons.
@@ -156,19 +127,13 @@ public:
    * @param rval Tree to be compared with.
    * @return true The Trees are the same.
    */
-  bool operator==(const Tree<T> rval)
-  {
+  bool operator==(const tree<T> rval) {
     bool l(!L && !rval.L), r(!R && !rval.R);
-    if (data == rval.data && r && l)
-    {
+    if (data == rval.data && r && l) {
       return true;
-    }
-    else if (data == rval.data)
-    {
-      if (!l && rval.L)
-        l = (L->operator==(*rval.L));
-      if (!r && rval.R)
-        r = (R->operator==(*rval.R));
+    } else if (data == rval.data) {
+      if (!l && rval.L) l = (L->operator==(*rval.L));
+      if (!r && rval.R) r = (R->operator==(*rval.R));
     }
     return l && r;
   }
@@ -178,19 +143,19 @@ public:
    *
    * @return true If the Tree isn't valid.
    */
-  bool operator!() { return (*this == Tree<T>(T())); }
+  bool operator!() { return (*this == tree<T>(T())); }
   /**
    * @brief Operator overload for less or equal comparison.
    *
    * @return true If the Tree root is less or equal to the right Tree root.
    */
-  bool operator<=(const Tree<T> rval) { return (data <= rval.data); };
+  bool operator<=(const tree<T> rval) { return (data <= rval.data); };
   /**
    * @brief Operator overload for greater comparison.
    *
    * @return true If the Tree root is greater to the right Tree root.
    */
-  bool operator>(const Tree<T> rval) { return (data > rval.data); };
+  bool operator>(const tree<T> rval) { return (data > rval.data); };
 
   /**
    * @brief Inserts a data in the Tree following the principles of a Binary
@@ -200,12 +165,9 @@ public:
    * @param val data wanted to be stored.
    * @return Tree<T>& The self Tree.
    */
-  Tree<T> &insert(T val = T())
-  {
-    if (val <= data)
-      (L ? L->insert(val) : insertInL(val));
-    if (val > data)
-      (R ? R->insert(val) : insertInR(val));
+  tree<T> &insert(T val = T()) {
+    if (val <= data) (L ? L->insert(val) : insertInL(val));
+    if (val > data) (R ? R->insert(val) : insertInR(val));
     return *this;
   }
   /**
@@ -216,12 +178,9 @@ public:
    * @param source Branch wanted to be stored.
    * @return Tree<T>& The self Tree.
    */
-  Tree<T> &insert(Tree<T> source = Tree<T>(T()))
-  {
-    if (source.data <= data)
-      (L ? L->insert(source) : insertInL(source));
-    if (source.data > data)
-      (R ? R->insert(source) : insertInR(source));
+  tree<T> &insert(tree<T> source = tree<T>(T())) {
+    if (source.data <= data) (L ? L->insert(source) : insertInL(source));
+    if (source.data > data) (R ? R->insert(source) : insertInR(source));
     return *this;
   }
 
@@ -232,12 +191,9 @@ public:
    * @param val Wanted data.
    * @return Tree<T>& Branch where the data was found.
    */
-  Tree<T> &find(T val = T())
-  {
-    if (val < data)
-      return (L ? L->find(val) : NULL);
-    if (val > data)
-      return (R ? R->find(val) : NULL);
+  tree<T> &find(T val = T()) {
+    if (val < data) return (L ? L->find(val) : NULL);
+    if (val > data) return (R ? R->find(val) : NULL);
     return *this;
   }
   /**
@@ -247,19 +203,14 @@ public:
    * @param val Wanted data.
    * @return Tree<T>& Parent branch where the data was found.
    */
-  Tree<T> &findParent(T val = T())
-  {
+  tree<T> &findParent(T val = T()) {
     if (L)
-      if (L->data == val)
-        return *this;
+      if (L->data == val) return *this;
     if (R)
-      if (R->data == val)
-        return *this;
+      if (R->data == val) return *this;
 
-    if (val < data)
-      return (L ? L->findParent(val) : NULL);
-    if (val > data)
-      return (R ? R->findParent(val) : NULL);
+    if (val < data) return (L ? L->findParent(val) : NULL);
+    if (val > data) return (R ? R->findParent(val) : NULL);
   }
 
   /**
@@ -270,29 +221,21 @@ public:
    * @param val Data to remove.
    * @return Tree<T>& Tree with data removed.
    */
-  Tree<T> &remove(T val = T())
-  {
-    Tree<T> *pT = &findParent(val), *t = &pT->find(val);
-    if (t == Tree<T>(T()))
-      return *this;
+  tree<T> &remove(T val = T()) {
+    tree<T> *pT = &findParent(val), *t = &pT->find(val);
+    if (t == tree<T>(T())) return *this;
 
     if (!t->L && !t->R)
       pT->removeTBranch(val);
-    else if (!t->L && t->R)
-    {
+    else if (!t->L && t->R) {
       t->L->R = t->R;
       t = t->L;
-    }
-    else if (!t->R && t->L)
-    {
+    } else if (!t->R && t->L) {
       t->R->L = t->L;
       t = t->R;
-    }
-    else
-    {
-      Tree<T> *aT = t->R;
-      while (aT->L)
-        aT = aT->L;
+    } else {
+      tree<T> *aT = t->R;
+      while (aT->L) aT = aT->L;
       t->data = aT->data;
       return t->R->remove(aT->data);
     }

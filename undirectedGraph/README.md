@@ -2,7 +2,7 @@
 
 ```cpp
 #include <iostream>
-#include "./graph.hh"
+#include "./src/graph.hh"
 using namespace std;
 
 int main()
